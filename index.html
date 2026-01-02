@@ -1,0 +1,2307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌟🐾 Healthy Breaks with LorenZOO🐾🌟</title>
+    <!-- Favicon actualizado con el logo de la empresa -->
+    <link rel="icon" href="assets/icons/app.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500 ;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css ">
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js "></script>
+    <style>
+        .emoji {
+            font-size: 2.2rem;          /* ligeramente más grandes */
+            color: #FFD700;             /* amarillo dorado más brillante */
+            background-color: rgba(0, 0, 0, 0.8); /* fondo semi-transparente oscuro */
+            padding: 8px;
+            border-radius: 10px;
+            text-shadow: 0 0 10px #FFA500, 0 0 20px #FF8C00; /* efecto de resplandor */
+            border: 2px solid #FF8C00;  /* borde naranja para contraste */
+            display: inline-block;
+            margin: 0 5px;
+            vertical-align: middle;
+        }
+        .emoji-paw {
+            color: #00FFFF;             /* cian brillante */
+            text-shadow: 0 0 10px #00BFFF, 0 0 20px #0080FF; /* efecto de resplandor azul */
+            border: 2px solid #00BFFF;  /* borde azul turquesa */
+        }
+        
+        /* Todos los estilos CSS anteriores permanecen exactamente igual */
+        :root {
+            --primary-color: #ff073a;
+            --secondary-color: #00FFFF;
+            --accent-color: #FFD700;
+            --background-gradient: linear-gradient(135deg,#000 0,#0a0a1a 50%,#000 100%);
+            --text-color: #fff;
+            --border-radius: 10px;
+            --transition: all 0.3s ease;
+            --footer-gold: #FFD700;
+            --footer-hover: #FFFF00;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background: var(--background-gradient);
+            color: var(--text-color);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .star {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: twinkle 5s infinite ease-in-out;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+        .comet {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+            animation: cometFly 15s linear infinite;
+        }
+        @keyframes cometFly {
+            0% {
+                transform: translateX(0) translateY(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100vw) translateY(100vh);
+                opacity: 0;
+            }
+        }
+        .colombia-clock, .user-info {
+            position: fixed;
+            background: rgba(0,0,0,0.7);
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+            z-index: 1000;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 2px solid var(--secondary-color);
+            color: var(--secondary-color);
+        }
+        .colombia-clock { top: 20px; left: 20px; }
+        .language-selector {
+            position: fixed;
+            top: 20px;
+            right: 100px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        .language-btn {
+            background: rgba(0,0,0,0.7);
+            color: var(--text-color);
+            border: 2px solid var(--secondary-color);
+            border-radius: var(--border-radius);
+            padding: 5px 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Orbitron', sans-serif;
+        }
+        .language-btn.active, .language-btn:hover {
+            background: var(--secondary-color);
+            color: #000;
+            box-shadow: 0 0 15px var(--secondary-color);
+        }
+        .main-container {
+            display: flex;
+            max-width: 1400px;
+            margin: 100px auto 30px;
+            gap: 20px;
+            padding: 0 20px;
+        }
+        .content-container {
+            flex: 1;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: var(--border-radius);
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 0 20px rgba(255, 7, 58, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+        .roles-sidebar {
+            width: 800px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: var(--border-radius);
+            border: 2px solid var(--secondary-color);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.7);
+            padding: 20px;
+            max-height: calc(100vh - 150px);
+            overflow-y: auto;
+            position: sticky;
+            top: 100px;
+        }
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .sidebar-toggle {
+            background: none;
+            border: none;
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .sidebar-toggle:hover {
+            color: var(--primary-color);
+        }
+        .floating-sidebar-toggle {
+            position: fixed;
+            top: 20px;
+            right: 250px;
+            background: var(--secondary-color);
+            color: #000;
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 10px 15px;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1rem;
+            transition: var(--transition);
+            font-family: 'Orbitron', sans-serif;
+            gap: 8px;
+        }
+        .floating-sidebar-toggle:hover {
+            background: var(--primary-color);
+            box-shadow: 0 0 20px rgba(255, 7, 58, 0.7);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+            text-shadow: 0 0 10px var(--accent-color);
+            font-size: 2rem;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+        }
+        h3 {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .video-container {
+            position: relative;
+            width: 100%;
+            margin-bottom: 20px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+            background: #000;
+        }
+        video {
+            display: block;
+            width: 100%;
+            border-radius: var(--border-radius);
+            will-change: transform; /* Mejora rendimiento */
+            transform: translateZ(0); /* Hardware acceleration */
+        }
+        .timer {
+            text-align: center;
+            margin: 10px 0;
+            font-size: 1.2rem;
+        }
+        #total-timer {
+            color: #FFA500;
+            font-weight: bold;
+            text-shadow: 0 0 10px #FFA500, 0 0 20px #FF8C00;
+            font-size: 1.4rem;
+        }
+        #countdown-timer {
+            color: var(--secondary-color);
+        }
+        #countdown-timer.pulse {
+            animation: pulse 1s infinite;
+            color: var(--primary-color);
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .controls button {
+            background: rgba(0,0,0,0.7);
+            color: var(--text-color);
+            border: 2px solid var(--primary-color);
+            border-radius: var(--border-radius);
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Orbitron', sans-serif;
+        }
+        .controls button:hover {
+            background: var(--primary-color);
+            box-shadow: 0 0 15px var(--primary-color);
+        }
+        .exercise-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+        .exercise-list li {
+            padding: 10px;
+            margin: 5px 0;
+            background: rgba(0,0,0,0.5);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--secondary-color);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .exercise-list li:hover {
+            background: rgba(0, 255, 255, 0.2);
+        }
+        .exercise-list li.active {
+            background: var(--secondary-color);
+            color: #000;
+            font-weight: bold;
+        }
+        .video-error {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--primary-color);
+            text-align: center;
+            padding: 20px;
+            z-index: 4;
+            border-radius: var(--border-radius);
+        }
+        .video-error button {
+            margin-top: 15px;
+            padding: 8px 15px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            transition: var(--transition);
+        }
+        .video-error button:hover {
+            background: #ff0040;
+            box-shadow: 0 0 10px var(--primary-color);
+        }
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 5;
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: var(--secondary-color);
+            animation: spin 1s ease-in-out infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .progress-bar {
+            width: 80%;
+            height: 10px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-color);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        .feedback-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid var(--secondary-color);
+            border-radius: var(--border-radius);
+            padding: 15px 25px;
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+            z-index: 2000;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.7);
+            text-align: center;
+            animation: fadeInOut 12s forwards;
+            display: none;
+        }
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translate(-50%, -40%); }
+            10% { opacity: 1; transform: translate(-50%, -50%); }
+            90% { opacity: 1; transform: translate(-50%, -50%); }
+            100% { opacity: 0; transform: translate(-50%, -60%); display: none; }
+        }
+        footer {
+            text-align: center;
+            font-size: 14px;
+            margin: 20px 0;
+            padding: 10px;
+            color: var(--footer-gold);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        footer:hover {
+            color: var(--footer-hover);
+            text-shadow: 0 0 15px #FFFF00, 0 0 25px #FFFF00;
+            font-size: 15px;
+            transform: scale(1.05);
+        }
+        .database-container {
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: var(--border-radius);
+            border: 2px solid var(--secondary-color);
+            padding: 15px;
+            margin-top: 20px;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+        }
+        .user-selection {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        .user-selection select, .user-selection input {
+            flex: 1;
+            min-width: 200px;
+            padding: 8px 12px;
+            background: rgba(0,0,0,0.7);
+            color: var(--text-color);
+            border: 1px solid var(--secondary-color);
+            border-radius: var(--border-radius);
+            font-family: 'Orbitron', sans-serif;
+        }
+        .user-selection button {
+            background: rgba(0,0,0,0.7);
+            color: var(--text-color);
+            border: 2px solid var(--primary-color);
+            border-radius: var(--border-radius);
+            padding: 8px 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Orbitron', sans-serif;
+        }
+        .user-selection button:hover {
+            background: var(--primary-color);
+            box-shadow: 0 0 10px var(--primary-color);
+        }
+        .user-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .stat-card {
+            background: rgba(0,0,0,0.5);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            border: 1px solid var(--secondary-color);
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin: 5px 0;
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+        }
+        .excel-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .excel-controls button {
+            flex: 1;
+            min-width: 150px;
+            background: rgba(0,0,0,0.7);
+            color: var(--text-color);
+            border: 2px solid var(--secondary-color);
+            border-radius: var(--border-radius);
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Orbitron', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .excel-controls button:hover {
+            background: var(--secondary-color);
+            color: #000;
+            box-shadow: 0 0 10px var(--secondary-color);
+        }
+        .roles-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .roles-table th, .roles-table td {
+            padding: 8px 10px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .roles-table th {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+        .roles-table tr:hover {
+            background: rgba(0, 255, 255, 0.1);
+        }
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+        .action-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            font-weight: bold;
+            min-width: 110px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        .edit-btn {
+            background: linear-gradient(135deg, #00b4db, #0083b0);
+            color: white;
+            border: 1px solid #0083b0;
+        }
+        .edit-btn:hover {
+            background: linear-gradient(135deg, #0083b0, #00b4db);
+            box-shadow: 0 0 15px rgba(0, 180, 219, 0.7);
+            transform: translateY(-2px);
+        }
+        .delete-btn {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: white;
+            border: 1px solid #ff4b2b;
+        }
+        .delete-btn:hover {
+            background: linear-gradient(135deg, #ff4b2b, #ff416c);
+            box-shadow: 0 0 15px rgba(255, 65, 108, 0.7);
+            transform: translateY(-2px);
+        }
+        .action-btn i {
+            font-size: 1rem;
+        }
+        .roles-filter {
+            width: 100%;
+            padding: 8px 12px;
+            background: rgba(0,0,0,0.7);
+            color: var(--text-color);
+            border: 1px solid var(--secondary-color);
+            border-radius: var(--border-radius);
+            margin-bottom: 15px;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .user-connected {
+            background: rgba(0, 255, 0, 0.2) !important;
+            border-left: 3px solid #00FF00;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: rgba(0,0,0,0.9);
+            border: 2px solid var(--secondary-color);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--secondary-color);
+            padding-bottom: 10px;
+        }
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .modal-body {
+            margin-bottom: 15px;
+        }
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--secondary-color);
+        }
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 8px 12px;
+            background: rgba(0,0,0,0.7);
+            color: var(--text-color);
+            border: 1px solid var(--secondary-color);
+            border-radius: var(--border-radius);
+            font-family: 'Orbitron', sans-serif;
+        }
+        .login-container {
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: var(--border-radius);
+            border: 2px solid var(--secondary-color);
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+        }
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .login-form button {
+            background: rgba(0,0,0,0.7);
+            color: var(--text-color);
+            border: 2px solid var(--primary-color);
+            border-radius: var(--border-radius);
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Orbitron', sans-serif;
+        }
+        .login-form button:hover {
+            background: var(--primary-color);
+            box-shadow: 0 0 10px var(--primary-color);
+        }
+        .register-link {
+            text-align: center;
+            margin-top: 10px;
+            color: var(--secondary-color);
+        }
+        .register-link a {
+            color: var(--accent-color);
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+        .reminder-alert {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.95);
+            border: 3px solid var(--accent-color);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            color: var(--accent-color);
+            font-size: 1.3rem;
+            z-index: 4000;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            display: none;
+        }
+        .reminder-alert h4 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        .reminder-alert p {
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+        .reminder-alert button {
+            background: rgba(0,0,0,0.7);
+            color: var(--text-color);
+            border: 2px solid var(--primary-color);
+            border-radius: var(--border-radius);
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Orbitron', sans-serif;
+            margin: 0 5px;
+        }
+        .reminder-alert button:hover {
+            background: var(--primary-color);
+            box-shadow: 0 0 10px var(--primary-color);
+        }
+        .password-input-wrapper {
+            position: relative;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--secondary-color);
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 5px;
+        }
+        .toggle-password:hover {
+            color: var(--accent-color);
+        }
+        video.pulse {
+            animation: pulse 1s infinite;
+        }
+        @media (max-width: 1024px) {
+            .main-container {
+                flex-direction: column;
+            }
+            .roles-sidebar {
+                width: 100%;
+                max-height: none;
+                position: static;
+            }
+            .floating-sidebar-toggle {
+                display: flex;
+            }
+            .roles-sidebar {
+                display: none;
+            }
+        }
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+            }
+            .controls button {
+                width: 100%;
+            }
+            .user-selection {
+                flex-direction: column;
+            }
+            .excel-controls {
+                flex-direction: column;
+            }
+            .excel-controls button {
+                width: 100%;
+            }
+            .language-selector {
+                right: 150px;
+            }
+            .action-buttons {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .action-btn {
+                min-width: 100%;
+                padding: 12px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="comets"></div>
+    <div class="feedback-message" id="feedback-message"></div>
+
+    <div class="reminder-alert" id="reminder-alert">
+        <h4 id="reminder-title">¡Hora de Pausa Activa!</h4>
+        <p id="reminder-message">Es hora de tomar un descanso y realizar ejercicios de pausa activa.</p>
+        <div>
+            <button id="reminder-start">Iniciar Ejercicios</button>
+            <button id="reminder-close">Cerrar</button>
+        </div>
+    </div>
+
+    <div class="colombia-clock">
+        <i class="fas fa-clock"></i> <span data-translate="bogota-time">Bogotá, Colombia: </span><span id="colombia-time">--:--:--</span>
+    </div>
+
+    <div class="language-selector">
+        <button class="language-btn active" id="es-btn">ES</button>
+        <button class="language-btn" id="en-btn">EN</button>
+    </div>
+
+    <button class="floating-sidebar-toggle" id="floating-sidebar-toggle" title="Abrir panel de equipo" data-translate="database-button">
+        <i class="fas fa-database"></i> <span data-translate="database">Base de Datos</span>
+    </button>
+
+    <div class="user-info" id="user-info" style="display:none;">
+        <i class="fas fa-user-circle"></i>
+        <span id="user-display" data-translate="user">Usuario</span>
+        <button class="logout-btn" id="logout-btn" title="Cerrar sesión" data-translate="logout-title">
+            <i class="fas fa-sign-out-alt"></i>
+        </button>
+    </div>
+
+    <div class="main-container">
+        <div class="content-container">
+            <h1>
+                <span class="emoji">🌟</span>
+                <span class="emoji-paw">🐾</span> 
+                <span data-translate="main-title-text">Pausas Saludables con LorenZOO</span>
+                <span class="emoji-paw">🐾</span>
+                <span class="emoji">🌟</span>
+            </h1>
+            <h2 id="exercise-title">CUIDADO VISUAL (86s)</h2>
+
+            <div class="video-container">
+                <div class="loading-overlay" id="video-loading">
+                    <div class="loading-spinner"></div>
+                    <div data-translate="loading-exercise">Cargando ejercicio...</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                </div>
+                <div class="video-error" id="video-error" style="display:none;">
+                    <i class="fas fa-exclamation-triangle" style="font-size:3rem;margin-bottom:15px;"></i>
+                    <h3 data-translate="video-error">Error al cargar el video</h3>
+                    <p data-translate="video-error-message">No se pudo cargar el video del ejercicio. Verifica tu conexión o la ruta del archivo.</p>
+                    <button id="reload-video-btn" data-translate="reload-video">Reintentar</button>
+                </div>
+                <video id="current-exercise-video" playsinline muted width="100%" controls></video>
+            </div>
+
+            <div class="timer" id="total-timer" data-translate="total-time">Tiempo total: 6:44</div>
+            <div class="timer" id="countdown-timer" data-translate="time-left">Tiempo restante: --</div>
+
+            <div class="controls">
+                <button onclick="prevExercise()"><i class="fas fa-step-backward"></i> <span data-translate="previous-button">Anterior</span></button>
+                <button onclick="playVideo()"><i class="fas fa-play"></i> <span data-translate="play-button">Reproducir</span></button>
+                <button onclick="pauseVideo()"><i class="fas fa-pause"></i> <span data-translate="pause-button">Pausar</span></button>
+                <button onclick="restartVideo()"><i class="fas fa-undo"></i> <span data-translate="restart-button">Reiniciar</span></button>
+                <button onclick="nextExercise()"><i class="fas fa-step-forward"></i> <span data-translate="next-button">Siguiente</span></button>
+            </div>
+
+            <ul class="exercise-list" id="exercise-list"></ul>
+        </div>
+
+        <div class="roles-sidebar" id="roles-sidebar">
+            <div class="sidebar-header">
+                <h3 data-translate="team-title">Equipo LorenZOO</h3>
+                <button class="sidebar-toggle" id="toggle-sidebar" title="Cerrar panel" data-translate="close-panel-title">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="login-container" id="login-container">
+                <h3 data-translate="login-title">Iniciar Sesión</h3>
+                <div class="login-form">
+                    <div class="input-group">
+                        <label for="login-user" data-translate="user-label">Usuario:</label>
+                        <select id="login-user">
+                            <option value="" data-translate="select-user">Seleccionar usuario</option>
+                        </select>
+                    </div>
+                    <button id="login-btn"><i class="fas fa-sign-in-alt"></i> <span data-translate="login-button">Iniciar Sesión</span></button>
+                    <div class="register-link">
+                        <span data-translate="not-registered">¿No estás registrado?</span> <a id="show-register" data-translate="register-link">Registrarse</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="database-container" id="database-container" style="display:none;">
+                <h3 data-translate="database">Base de Datos</h3>
+                
+                <div class="user-selection">
+                    <select id="user-select">
+                        <option value="" data-translate="select-user">Seleccionar usuario</option>
+                    </select>
+                    <button id="connect-user-btn"><i class="fas fa-plug"></i> <span data-translate="connect-button">Conectar</span></button>
+                </div>
+                
+                <div class="user-stats" id="user-stats">
+                    <div class="stat-card">
+                        <div class="stat-label" data-translate="sessions-completed">Sesiones completadas</div>
+                        <div class="stat-value" id="sessions-count">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label" data-translate="total-time">Tiempo total</div>
+                        <div class="stat-value" id="total-time">0 min</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label" data-translate="last-session">Última sesión</div>
+                        <div class="stat-value" id="last-session">-</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label" data-translate="exercises-today">Ejercicios hoy</div>
+                        <div class="stat-value" id="today-count">0</div>
+                    </div>
+                </div>
+                
+                <div class="excel-controls">
+                    <button id="excel-export"><i class="fas fa-file-excel"></i> <span data-translate="export-excel">Exportar Reporte SST</span></button>
+                    <button id="excel-import"><i class="fas fa-file-import"></i> <span data-translate="import-excel">Importar desde Excel</span></button>
+                    <button id="add-user-btn"><i class="fas fa-user-plus"></i> <span data-translate="add-user">Agregar Usuario</span></button>
+                </div>
+            </div>
+            
+            <input type="text" id="roles-filter" class="roles-filter" data-translate="filter-placeholder" placeholder="Filtrar por nombre, cargo o área...">
+            <table class="roles-table">
+                <thead>
+                    <tr>
+                        <th data-translate="id-header">ID</th>
+                        <th data-translate="name-header">Nombre</th>
+                        <th data-translate="position-header">Cargo</th>
+                        <th data-translate="area-header">Área</th>
+                        <th data-translate="status-header">Estado</th>
+                        <th data-translate="actions-header">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="roles-table-body">
+                    <!-- Las filas iniciales en el HTML se reemplazarán dinámicamente por rolesData sanitizado -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal para agregar usuario -->
+    <div class="modal" id="add-user-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 data-translate="add-user-title">Agregar Nuevo Usuario</h3>
+                <button class="modal-close" id="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <label for="new-user-name" data-translate="full-name">Nombre completo:</label>
+                    <input type="text" id="new-user-name" data-translate="name-placeholder" placeholder="Ingrese el nombre completo">
+                </div>
+                <div class="input-group">
+                    <label for="new-user-cargo" data-translate="position">Cargo:</label>
+                    <input type="text" id="new-user-cargo" data-translate="position-placeholder" placeholder="Ingrese el cargo">
+                </div>
+                <div class="input-group">
+                    <label for="new-user-area" data-translate="area">Área:</label>
+                    <input type="text" id="new-user-area" data-translate="area-placeholder" placeholder="Ingrese el área">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancel-add-user" data-translate="cancel-button">Cancelar</button>
+                <button id="save-new-user" data-translate="save-button">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para editar usuario -->
+    <div class="modal" id="edit-user-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 data-translate="edit-user-title">Editar Usuario</h3>
+                <button class="modal-close" id="close-edit-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="edit-user-id">
+                <div class="input-group">
+                    <label for="edit-user-name" data-translate="full-name">Nombre completo:</label>
+                    <input type="text" id="edit-user-name" data-translate="name-placeholder" placeholder="Ingrese el nombre completo">
+                </div>
+                <div class="input-group">
+                    <label for="edit-user-cargo" data-translate="position">Cargo:</label>
+                    <input type="text" id="edit-user-cargo" data-translate="position-placeholder" placeholder="Ingrese el cargo">
+                </div>
+                <div class="input-group">
+                    <label for="edit-user-area" data-translate="area">Área:</label>
+                    <input type="text" id="edit-user-area" data-translate="area-placeholder" placeholder="Ingrese el área">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancel-edit-user" data-translate="cancel-button">Cancelar</button>
+                <button id="save-edit-user" data-translate="save-changes">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para registro -->
+    <div class="modal" id="register-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 data-translate="register-title">Registrar Nuevo Usuario</h3>
+                <button class="modal-close" id="close-register-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <label for="register-name" data-translate="full-name">Nombre completo:</label>
+                    <input type="text" id="register-name" data-translate="name-placeholder" placeholder="Ingrese el nombre completo">
+                </div>
+                <div class="input-group">
+                    <label for="register-cargo" data-translate="position">Cargo:</label>
+                    <input type="text" id="register-cargo" data-translate="position-placeholder" placeholder="Ingrese el cargo">
+                </div>
+                <div class="input-group">
+                    <label for="register-area" data-translate="area">Área:</label>
+                    <input type="text" id="register-area" data-translate="area-placeholder" placeholder="Ingrese el área">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancel-register" data-translate="cancel-button">Cancelar</button>
+                <button id="save-register" data-translate="register-button">Registrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para contraseña de exportación -->
+    <div class="modal" id="password-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="password-modal-title" data-translate="password-title">Contraseña requerida</h3>
+                <button class="modal-close" id="close-password-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <label for="export-password" data-translate="password-label">Contraseña:</label>
+                    <div class="password-input-wrapper">
+                        <input type="text" id="export-password" data-translate="password-placeholder" placeholder="Ingrese la contraseña">
+                        <button type="button" class="toggle-password" id="toggle-export-password">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <p id="password-error" style="color: var(--primary-color); display: none; margin-top: 10px;" data-translate="password-error">Contraseña incorrecta. Intente nuevamente.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancel-password" data-translate="cancel-button">Cancelar</button>
+                <button id="submit-password" data-translate="submit-button">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <footer id="copyright"></footer>
+
+    <script>
+        const videoSources = {
+            'video5': ['videos/video5.mp4'],
+            'video7': ['videos/video7.mp4'],
+            'video9': ['videos/video9.mp4'],
+            'video11': ['videos/video11.mp4'],
+            'video13': ['videos/video13.mp4']
+        };
+
+        const exercises = {
+            'es': [
+                {title:"CUIDADO VISUAL (86s)", src:"videos/video5.mp4", duration:86, key:"video5"},
+                {title:"CUIDADO DEL CUELLO (89s)", src:"videos/video7.mp4", duration:89, key:"video7"},
+                {title:"CUIDADO DE LOS HOMBROS (95s)", src:"videos/video9.mp4", duration:95, key:"video9"},
+                {title:"CUIDADO DE ESPALDA Y ABDOMEN (70s)", src:"videos/video11.mp4", duration:70, key:"video11"},
+                {title:"CUIDADO DE LA CADERA Y MIEMBROS INFERIORES (64s)", src:"videos/video13.mp4", duration:64, key:"video13"}
+            ],
+            'en': [
+                {title:"VISUAL CARE (86s)", src:"videos/video5.mp4", duration:86, key:"video5"},
+                {title:"NECK CARE (89s)", src:"videos/video7.mp4", duration:89, key:"video7"},
+                {title:"SHOULDER CARE (95s)", src:"videos/video9.mp4", duration:95, key:"video9"},
+                {title:"BACK AND ABDOMEN CARE (70s)", src:"videos/video11.mp4", duration:70, key:"video11"},
+                {title:"HIP AND LOWER LIMBS CARE (64s)", src:"videos/video13.mp4", duration:64, key:"video13"}
+            ]
+        };
+
+        const translations = {
+            'es': {
+                'main-title-text': 'Pausas Saludables con LorenZOO',
+                'total-time': 'Tiempo total: 6:40',
+                'time-left': 'Tiempo restante: --',
+                'previous-button': 'Anterior',
+                'play-button': 'Reproducir',
+                'pause-button': 'Pausar',
+                'restart-button': 'Reiniciar',
+                'next-button': 'Siguiente',
+                'bogota-time': 'Bogotá, Colombia: ',
+                'database-button': 'Abrir panel de equipo',
+                'database': 'Base de Datos',
+                'user': 'Usuario',
+                'logout-title': 'Cerrar sesión',
+                'loading-exercise': 'Cargando ejercicio...',
+                'video-error': 'Error al cargar el video',
+                'video-error-message': 'No se pudo cargar el video del ejercicio. Verifica tu conexión o la ruta del archivo.',
+                'reload-video': 'Reintentar',
+                'fullscreen-title': 'Pantalla completa',
+                'team-title': 'Equipo LorenZOO',
+                'close-panel-title': 'Cerrar panel',
+                'login-title': 'Iniciar Sesión',
+                'user-label': 'Usuario:',
+                'select-user': 'Seleccionar usuario',
+                'login-button': 'Iniciar Sesión',
+                'not-registered': '¿No estás registrado?',
+                'register-link': 'Registrarse',
+                'connect-button': 'Conectar',
+                'sessions-completed': 'Sesiones completadas',
+                'last-session': 'Última sesión',
+                'exercises-today': 'Ejercicios hoy',
+                'export-excel': 'Exportar Reporte SST',
+                'import-excel': 'Importar desde Excel',
+                'add-user': 'Agregar Usuario',
+                'filter-placeholder': 'Filtrar por nombre, cargo o área...',
+                'id-header': 'ID',
+                'name-header': 'Nombre',
+                'position-header': 'Cargo',
+                'area-header': 'Área',
+                'status-header': 'Estado',
+                'actions-header': 'Acciones',
+                'add-user-title': 'Agregar Nuevo Usuario',
+                'full-name': 'Nombre completo:',
+                'position': 'Cargo:',
+                'area': 'Área:',
+                'name-placeholder': 'Ingrese el nombre completo',
+                'position-placeholder': 'Ingrese el cargo',
+                'area-placeholder': 'Ingrese el área',
+                'cancel-button': 'Cancelar',
+                'save-button': 'Guardar',
+                'edit-user-title': 'Editar Usuario',
+                'save-changes': 'Guardar Cambios',
+                'register-title': 'Registrar Nuevo Usuario',
+                'register-button': 'Registrar',
+                'password-title': 'Contraseña requerida',
+                'password-label': 'Contraseña:',
+                'password-placeholder': 'Ingrese la contraseña',
+                'password-error': 'Contraseña incorrecta. Intente nuevamente.',
+                'submit-button': 'Aceptar'
+            },
+            'en': {
+                'main-title-text': 'Healthy Breaks with LorenZOO',
+                'total-time': 'Total time: 6:40',
+                'time-left': 'Time left: --',
+                'previous-button': 'Previous',
+                'play-button': 'Play',
+                'pause-button': 'Pause',
+                'restart-button': 'Restart',
+                'next-button': 'Next',
+                'bogota-time': 'Bogotá, Colombia: ',
+                'database-button': 'Open team panel',
+                'database': 'Database',
+                'user': 'User',
+                'logout-title': 'Logout',
+                'loading-exercise': 'Loading exercise...',
+                'video-error': 'Error loading video',
+                'video-error-message': 'Could not load the exercise video. Check your connection or the file path.',
+                'reload-video': 'Retry',
+                'fullscreen-title': 'Fullscreen',
+                'team-title': 'LorenZOO Team',
+                'close-panel-title': 'Close panel',
+                'login-title': 'Login',
+                'user-label': 'User:',
+                'select-user': 'Select user',
+                'login-button': 'Login',
+                'not-registered': 'Not registered?',
+                'register-link': 'Register',
+                'connect-button': 'Connect',
+                'sessions-completed': 'Sessions completed',
+                'last-session': 'Last session',
+                'exercises-today': 'Exercises today',
+                'export-excel': 'Export SST Report',
+                'import-excel': 'Import from Excel',
+                'add-user': 'Add User',
+                'filter-placeholder': 'Filter by name, position or area...',
+                'id-header': 'ID',
+                'name-header': 'Name',
+                'position-header': 'Position',
+                'area-header': 'Area',
+                'status-header': 'Status',
+                'actions-header': 'Actions',
+                'add-user-title': 'Add New User',
+                'full-name': 'Full name:',
+                'position': 'Position:',
+                'area': 'Area:',
+                'name-placeholder': 'Enter full name',
+                'position-placeholder': 'Enter position',
+                'area-placeholder': 'Enter area',
+                'cancel-button': 'Cancelar',
+                'save-button': 'Save',
+                'edit-user-title': 'Edit User',
+                'save-changes': 'Save Changes',
+                'register-title': 'Register New User',
+                'register-button': 'Register',
+                'password-title': 'Password required',
+                'password-label': 'Password:',
+                'password-placeholder': 'Enter the password',
+                'password-error': 'Incorrect password. Try again.',
+                'submit-button': 'Submit'
+            }
+        };
+
+        const DB_VERSION = 10;
+        const ADMIN_PASSWORD = "SstTh_2025*";
+        
+        function initializeDatabase() {
+            let users = [];
+            let userActivity = [];
+            let currentUser = null;
+
+            try {
+                users = JSON.parse(localStorage.getItem('users')) || [];
+                userActivity = JSON.parse(localStorage.getItem('user_activity')) || [];
+                currentUser = JSON.parse(localStorage.getItem('current_user'));
+            } catch {
+                users = [];
+                userActivity = [];
+                currentUser = null;
+            }
+
+            if (!Array.isArray(users) || users.length === 0 || !localStorage.getItem('db_version') || localStorage.getItem('db_version') < DB_VERSION) {
+                const rolesData = [
+                    {id:1,nombre:"Usuario 1",cargo:"Auxiliar (ADT)",area:"Almacenamiento, Distribución y Transporte"},
+                    {id:2,nombre:"Usuario 2",cargo:"Auxiliar Servicios Generales",area:"Servicios Generales"},
+                    {id:3,nombre:"Usuario 3",cargo:"Representante de Ventas",area:"Ventas"},
+                    {id:4,nombre:"Usuario 4",cargo:"Representante de Ventas",area:"Ventas"},
+                    {id:5,nombre:"Usuario 5",cargo:"Líder (TH-SST)",area:"Talento Humano y SST"},
+                    {id:6,nombre:"Usuario 6",cargo:"Auxiliar Servicios Generales",area:"Servicios Generales"},
+                    {id:7,nombre:"Usuario 7",cargo:"Director Científico",area:"Dirección Científica"},
+                    {id:8,nombre:"Usuario 8",cargo:"Auxiliar (ADT)",area:"Almacenamiento, Distribución y Transporte"},
+                    {id:9,nombre:"Usuario 9",cargo:"Socio",area:"Dirección"},
+                    {id:10,nombre:"Usuario 10",cargo:"Tesorera",area:"Finanzas"},
+                    {id:11,nombre:"Usuario 11",cargo:"Gestor de Eventos y Mercadeo",area:"Eventos y Mercadeo"},
+                    {id:12,nombre:"Usuario 12",cargo:"Representante de Ventas",area:"Ventas"},
+                    {id:13,nombre:"Usuario 13",cargo:"Coordinador Logístico",area:"Logística"},
+                    {id:14,nombre:"Usuario 14",cargo:"Inspector de Calidad",area:"Calidad"},
+                    {id:15,nombre:"Usuario 15",cargo:"Recepcionista",area:"Recepción"},
+                    {id:16,nombre:"Usuario 16",cargo:"Técnico Conducción y Operaciones Integrales",area:"Operaciones"},
+                    {id:17,nombre:"Usuario 17",cargo:"Representante de Ventas",area:"Ventas"},
+                    {id:18,nombre:"Usuario 18",cargo:"Líder de Contabilidad",area:"Contabilidad"},
+                    {id:19,nombre:"Usuario 19",cargo:"Representante de Ventas",area:"Ventas"},
+                    {id:20,nombre:"Usuario 20",cargo:"Auxiliar (ADT)",area:"Almacenamiento, Distribución y Transporte"},
+                    {id:21,nombre:"Usuario 21",cargo:"Representante de Ventas",area:"Ventas"},
+                    {id:22,nombre:"Usuario 22",cargo:"Representante de Ventas",area:"Ventas"},
+                    {id:23,nombre:"Usuario 23",cargo:"Gestor de Contabilidad",area:"Contabilidad"},
+                    {id:24,nombre:"Usuario 24",cargo:"Representante de Ventas",area:"Ventas"},
+                    {id:25,nombre:"Usuario 25",cargo:"Aprendiz SENA",area:"Formación"},
+                    {id:26,nombre:"Usuario 26",cargo:"Representante de Ventas",area:"Ventas"},
+                    {id:27,nombre:"Usuario 27",cargo:"Auxiliar (ADT)",area:"Almacenamiento, Distribución y Transporte"},
+                    {id:28,nombre:"Usuario 28",cargo:"Representante de Ventas",area:"Ventas"},
+                    {id:29,nombre:"Usuario 29",cargo:"Representante de Ventas",area:"Ventas"},
+                    {id:30,nombre:"Usuario 30",cargo:"Representante de Ventas",area:"Ventas"},
+                    {id:31,nombre:"Usuario 31",cargo:"Auxiliar (ADT)",area:"Almacenamiento, Distribución y Transporte"},
+                    {id:32,nombre:"Usuario 32",cargo:"Gestor Ambiental",area:"Ambiental"},
+                    {id:33,nombre:"Usuario 33",cargo:"Líder (TH-SST)",area:"Talento Humano y SST"},
+                    {id:34,nombre:"Usuario 34",cargo:"Técnico de Ventas",area:"Ventas"},
+                    {id:35,nombre:"Usuario 35",cargo:"Dirección Técnica y Garantía Calidad",area:"Dirección Técnica y Calidad"},
+                    {id:36,nombre:"Usuario 36",cargo:"Líder (SI-COMET)",area:"Comercio"},
+                    {id:37,nombre:"Usuario 37",cargo:"Líder (ADT)",area:"Almacenamiento, Distribución y Transporte"},
+                    {id:38,nombre:"Usuario 38",cargo:"Técnico Conducción y Operaciones Integrales",area:"Operaciones"},
+                    {id:39,nombre:"Usuario 39",cargo:"Líder de Planeación y Operaciones Integrales",area:"Planeación y Operaciones"},
+                    {id:40,nombre:"Usuario 40",cargo:"Revisor Fiscal",area:"Finanzas"},
+                    {id:41,nombre:"Usuario 41",cargo:"Director de Imagen y Comunicaciones",area:"Imagen y Comunicaciones"},
+                    {id:42,nombre:"Usuario 42",cargo:"Gerente General",area:"Dirección"},
+                    {id:43,nombre:"Usuario 43",cargo:"Líder de Imagen y Comunicaciones",area:"Imagen y Comunicaciones"},
+                    {id:44,nombre:"Usuario 44",cargo:"Mensajero",area:"Logística"},
+                    {id:45,nombre:"Usuario 45",cargo:"Gestor de Costos",area:"Finanzas"},
+                    {id:46,nombre:"Usuario 46",cargo:"Líder de Compras",area:"Compras"},
+                    {id:47,nombre:"Usuario 47",cargo:"Documentador",area:"Documentación"},
+                    {id:48,nombre:"Usuario 48",cargo:"Auxiliar Servicios Generales",area:"Servicios Generales"},
+                    {id:49,nombre:"Usuario 49",cargo:"Asesor Talento Humano",area:"Talento Humano"},
+                    {id:50,nombre:"Usuario 50",cargo:"Aprendiz SENA",area:"Formación"},
+                    {id:51,nombre:"Usuario 51",cargo:"Auxiliar Contable y Facturación",area:"Contabilidad"},
+                    {id:52,nombre:"Usuario 52",cargo:"Promotor de Productos",area:"Ventas"},
+                    {id:53,nombre:"Usuario 53",cargo:"Líder Ventas y Cartera",area:"Ventas y Cartera"}
+                ];
+
+                users = rolesData;
+                userActivity = [];
+                currentUser = null;
+            }
+
+            localStorage.setItem('users', JSON.stringify(users));
+            localStorage.setItem('user_activity', JSON.stringify(userActivity));
+            localStorage.setItem('current_user', JSON.stringify(currentUser));
+            localStorage.setItem('db_version', DB_VERSION);
+
+            return { users, userActivity, currentUser };
+        }
+
+        function getUsers() {
+            try {
+                return JSON.parse(localStorage.getItem('users')) || [];
+            } catch {
+                return [];
+            }
+        }
+
+        function getUserActivity() {
+            try {
+                return JSON.parse(localStorage.getItem('user_activity')) || [];
+            } catch {
+                return [];
+            }
+        }
+
+        function getCurrentUser() {
+            try {
+                return JSON.parse(localStorage.getItem('current_user'));
+            } catch {
+                return null;
+            }
+        }
+
+        function saveUsers(users) {
+            try {
+                localStorage.setItem('users', JSON.stringify(users));
+            } catch {
+                mostrarFeedback("Error al guardar usuarios.");
+            }
+        }
+
+        function saveUserActivity(activity) {
+            try {
+                localStorage.setItem('user_activity', JSON.stringify(activity));
+            } catch {
+                mostrarFeedback("Error al guardar actividad.");
+            }
+        }
+
+        function saveCurrentUser(user) {
+            try {
+                localStorage.setItem('current_user', JSON.stringify(user));
+            } catch {
+                mostrarFeedback("Error al guardar usuario actual.");
+            }
+        }
+
+        let rolesData = [];
+        let currentIndex = 0, countdownInterval, currentLanguage = 'es', currentExercises = exercises[currentLanguage];
+        let userInteracted = false, videoLoadingTimeout, lastTimeLeft = 0;
+        let currentUser = null;
+        let videoSourcesTried = {};
+        let sidebarOpen = true;
+        let reminderShownToday = { '11am': false, '3pm': false };
+        let audioContext, alarmSound;
+        let wasManuallySkipped = false;
+        let lastTimeUpdate = 0;
+        let animationFrameId = null; // Para requestAnimationFrame
+
+        const DOM = {
+            video: document.getElementById("current-exercise-video"),
+            exerciseList: document.getElementById("exercise-list"),
+            totalTimer: document.getElementById("total-timer"),
+            countdownTimer: document.getElementById("countdown-timer"),
+            exerciseTitle: document.getElementById("exercise-title"),
+            colombiaTimeElement: document.getElementById("colombia-time"),
+            videoLoadingOverlay: document.getElementById("video-loading"),
+            progressFill: document.getElementById("progress-fill"),
+            userInfo: document.getElementById("user-info"),
+            userDisplay: document.getElementById("user-display"),
+            logoutBtn: document.getElementById("logout-btn"),
+            feedbackMessage: document.getElementById("feedback-message"),
+            videoError: document.getElementById("video-error"),
+            copyright: document.getElementById("copyright"),
+            reloadVideoBtn: document.getElementById("reload-video-btn"),
+            rolesFilter: document.getElementById("roles-filter"),
+            rolesTableBody: document.getElementById("roles-table-body"),
+            excelExportBtn: document.getElementById("excel-export"),
+            excelImportBtn: document.getElementById("excel-import"),
+            userSelect: document.getElementById("user-select"),
+            connectUserBtn: document.getElementById("connect-user-btn"),
+            userStats: document.getElementById("user-stats"),
+            sessionsCount: document.getElementById("sessions-count"),
+            totalTime: document.getElementById("total-time"),
+            lastSession: document.getElementById("last-session"),
+            todayCount: document.getElementById("today-count"),
+            addUserBtn: document.getElementById("add-user-btn"),
+            addUserModal: document.getElementById("add-user-modal"),
+            closeModal: document.getElementById("close-modal"),
+            cancelAddUser: document.getElementById("cancel-add-user"),
+            saveNewUser: document.getElementById("save-new-user"),
+            loginContainer: document.getElementById("login-container"),
+            databaseContainer: document.getElementById("database-container"),
+            loginUser: document.getElementById("login-user"),
+            loginBtn: document.getElementById("login-btn"),
+            showRegister: document.getElementById("show-register"),
+            registerModal: document.getElementById("register-modal"),
+            closeRegisterModal: document.getElementById("close-register-modal"),
+            cancelRegister: document.getElementById("cancel-register"),
+            saveRegister: document.getElementById("save-register"),
+            toggleSidebar: document.getElementById("toggle-sidebar"),
+            rolesSidebar: document.getElementById("roles-sidebar"),
+            editUserModal: document.getElementById("edit-user-modal"),
+            closeEditModal: document.getElementById("close-edit-modal"),
+            cancelEditUser: document.getElementById("cancel-edit-user"),
+            saveEditUser: document.getElementById("save-edit-user"),
+            floatingSidebarToggle: document.getElementById("floating-sidebar-toggle"),
+            reminderAlert: document.getElementById("reminder-alert"),
+            reminderTitle: document.getElementById("reminder-title"),
+            reminderMessage: document.getElementById("reminder-message"),
+            reminderStart: document.getElementById("reminder-start"),
+            reminderClose: document.getElementById("reminder-close"),
+            passwordModal: document.getElementById("password-modal"),
+            exportPasswordInput: document.getElementById("export-password"),
+            passwordError: document.getElementById("password-error"),
+            closePasswordModal: document.getElementById("close-password-modal"),
+            cancelPasswordBtn: document.getElementById("cancel-password"),
+            submitPasswordBtn: document.getElementById("submit-password"),
+            passwordModalTitle: document.getElementById("password-modal-title")
+        };
+
+        function setupPasswordToggles() {
+            const toggles = [
+                { button: 'toggle-export-password', input: 'export-password' }
+            ];
+
+            toggles.forEach(toggle => {
+                const btn = document.getElementById(toggle.button);
+                const input = document.getElementById(toggle.input);
+                if (btn && input) {
+                    btn.addEventListener('click', () => {
+                        const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+                        input.setAttribute('type', type);
+                        btn.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+                    });
+                }
+            });
+        }
+
+        function mostrarFeedback(mensaje) {
+            DOM.feedbackMessage.textContent = mensaje;
+            DOM.feedbackMessage.style.display = 'block';
+            setTimeout(() => DOM.feedbackMessage.style.display = 'none', 5000);
+        }
+
+        function loadVideoSource(exercise) {
+            const src = videoSources[exercise.key] ? videoSources[exercise.key][0] : exercise.src;
+            DOM.video.src = src;
+            DOM.video.load();
+            
+            DOM.video.onloadeddata = () => {
+                DOM.videoLoadingOverlay.style.display = 'none';
+                DOM.exerciseTitle.textContent = exercise.title;
+                renderExerciseList();
+                updateCountdownDisplay(exercise.duration);
+                
+                if (userInteracted) {
+                    DOM.video.play().then(() => startCountdownSync()).catch(() => {});
+                }
+            };
+            
+            DOM.video.onerror = () => {
+                DOM.videoLoadingOverlay.style.display = 'none';
+                DOM.videoError.style.display = 'flex';
+                mostrarFeedback("Video no disponible.");
+            };
+        }
+
+        function renderExerciseList() {
+            DOM.exerciseList.innerHTML = "";
+            const fragment = document.createDocumentFragment();
+            currentExercises.forEach((ex, idx) => {
+                const li = document.createElement("li");
+                li.textContent = ex.title;
+                li.addEventListener('click', () => {
+                    wasManuallySkipped = false;
+                    loadExercise(idx);
+                });
+                if(idx === currentIndex) li.classList.add("active");
+                fragment.appendChild(li);
+            });
+            DOM.exerciseList.appendChild(fragment);
+        }
+
+        function loadExercise(index) {
+            if(index < 0 || index >= currentExercises.length) return;
+            clearInterval(countdownInterval);
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
+            }
+            currentIndex = index;
+            const exercise = currentExercises[currentIndex];
+            DOM.exerciseTitle.textContent = `Cargando: ${exercise.title}`;
+            DOM.video.pause();
+            DOM.videoLoadingOverlay.style.display = 'flex';
+            DOM.videoError.style.display = 'none';
+            wasManuallySkipped = false;
+            lastTimeUpdate = 0;
+            loadVideoSource(exercise);
+        }
+
+        function updateCountdownDisplay(timeLeft) {
+            const timeLeftText = currentLanguage === 'es' ? 'Tiempo restante: ' : 'Time left: ';
+            DOM.countdownTimer.textContent = timeLeftText + timeLeft + "s";
+        }
+
+        function startCountdownSync() {
+            clearInterval(countdownInterval);
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
+            }
+            const exercise = currentExercises[currentIndex];
+            if (!exercise) return;
+            
+            lastTimeUpdate = DOM.video.currentTime;
+            
+            let lastCheckTime = performance.now();
+            
+            function checkVideoTime() {
+                const currentTime = DOM.video.currentTime;
+                const currentTimeFloor = Math.floor(currentTime);
+                const timeLeft = exercise.duration - currentTimeFloor;
+                
+                // Detectar seek manual (diferencia mayor a 1.5 segundos del esperado)
+                if (Math.abs(currentTime - (lastTimeUpdate + 0.2)) > 1.5) {
+                    wasManuallySkipped = true;
+                }
+                
+                updateCountdownDisplay(timeLeft);
+                
+                // Efecto de pulso cuando faltan 5 segundos
+                if (timeLeft <= 5 && timeLeft > 0) {
+                    DOM.countdownTimer.classList.add('pulse');
+                    DOM.video.classList.add('pulse');
+                } else {
+                    DOM.countdownTimer.classList.remove('pulse');
+                    DOM.video.classList.remove('pulse');
+                }
+                
+                // Video terminado naturalmente (no skipped)
+                if (currentTimeFloor >= exercise.duration && !wasManuallySkipped) {
+                    DOM.countdownTimer.classList.remove('pulse');
+                    DOM.video.classList.remove('pulse');
+                    if (currentUser) {
+                        registerUserActivity();
+                    }
+                    if (currentIndex === currentExercises.length - 1) {
+                        mostrarFeedback(currentLanguage === 'es' 
+                            ? "¡Felicidades! Has completado toda la rutina." 
+                            : "Congratulations! You have completed the entire routine.");
+                    } else {
+                        setTimeout(() => nextExercise(), 1000);
+                    }
+                } else if (DOM.video.paused) {
+                    // Si el video está pausado, no continuar el loop
+                    animationFrameId = null;
+                    return;
+                } else if (currentTimeFloor < exercise.duration) {
+                    // Solo continuar si el video no ha terminado
+                    animationFrameId = requestAnimationFrame(checkVideoTime);
+                }
+                
+                lastTimeUpdate = currentTime;
+            }
+            
+            animationFrameId = requestAnimationFrame(checkVideoTime);
+        }
+
+        function playVideo() {
+            userInteracted = true;
+            wasManuallySkipped = false;
+            DOM.video.play().then(() => startCountdownSync()).catch(() => mostrarFeedback("Error al reproducir."));
+        }
+
+        function pauseVideo() {
+            DOM.video.pause();
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+                animationFrameId = null;
+            }
+        }
+
+        function restartVideo() {
+            wasManuallySkipped = false;
+            DOM.video.currentTime = 0;
+            DOM.video.play().then(() => startCountdownSync()).catch(() => {});
+        }
+
+        function nextExercise() {
+            wasManuallySkipped = false;
+            if(currentIndex < currentExercises.length-1) {
+                loadExercise(currentIndex+1);
+            } else {
+                mostrarFeedback(currentLanguage === 'es' 
+                    ? "¡Has completado toda la rutina!" 
+                    : "You have completed the entire routine!");
+            }
+        }
+
+        function prevExercise() {
+            wasManuallySkipped = false;
+            if(currentIndex > 0) loadExercise(currentIndex-1);
+        }
+
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            currentExercises = exercises[lang];
+            document.querySelectorAll('.language-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`${lang}-btn`).classList.add('active');
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang][key]) {
+                    if (element.hasAttribute('placeholder')) {
+                        element.setAttribute('placeholder', translations[lang][key]);
+                    } else if (element.hasAttribute('title')) {
+                        element.setAttribute('title', translations[lang][key]);
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+            renderExerciseList();
+            if (currentExercises[currentIndex]) {
+                DOM.exerciseTitle.textContent = currentExercises[currentIndex].title;
+                updateCountdownDisplay(currentExercises[currentIndex].duration - Math.floor(DOM.video.currentTime));
+            }
+            localStorage.setItem('preferredLanguage', lang);
+        }
+
+        function createStarsAndComets() {
+            const stars = document.querySelector(".stars");
+            const comets = document.querySelector(".comets");
+            stars.innerHTML = '';
+            comets.innerHTML = '';
+            
+            for(let i = 0; i < 300; i++) {
+                const star = document.createElement("div");
+                star.className = "star";
+                star.style.left = Math.random() * 100 + "vw";
+                star.style.top = Math.random() * 100 + "vh";
+                const size = 1.5 + Math.random() * 2.5;
+                star.style.width = size + "px";
+                star.style.height = size + "px";
+                star.style.opacity = 0.5 + Math.random() * 0.5;
+                star.style.animationDelay = Math.random() * 5 + "s";
+                stars.appendChild(star);
+            }
+            
+            for(let i = 0; i < 10; i++) {
+                const comet = document.createElement("div");
+                comet.className = "comet";
+                comet.style.left = Math.random() * 20 + "vw";
+                comet.style.top = Math.random() * 20 + "vh";
+                comet.style.animationDelay = Math.random() * 10 + "s";
+                comet.style.animationDuration = 10 + Math.random() * 20 + "s";
+                comets.appendChild(comet);
+            }
+        }
+
+        function updateClock() {
+            const options = { timeZone: 'America/Bogota', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            const formatter = new Intl.DateTimeFormat('es-CO', options);
+            const now = new Date();
+            DOM.colombiaTimeElement.textContent = formatter.format(now);
+            checkReminder(now);
+        }
+
+        function loadRolesTable() {
+            DOM.rolesTableBody.innerHTML = '';
+            rolesData.forEach(role => {
+                const row = document.createElement('tr');
+                const isConnected = currentUser && currentUser.id === role.id;
+                // TODAS las filas ahora tienen el estilo highlight-row
+                row.className = isConnected ? 'user-connected highlight-row' : 'highlight-row';
+                row.innerHTML = `
+                    <td><strong>${role.id}</strong></td>
+                    <td style="color: #FFD700; font-weight: bold; padding: 12px 15px;">${role.nombre}</td>
+                    <td style="color: #00FFFF; background: rgba(0, 255, 255, 0.1); padding: 12px 15px;">${role.cargo}</td>
+                    <td style="color: #FFA500; padding: 12px 15px;">${role.area}</td>
+                    <td>${isConnected ? '<i class="fas fa-plug" style="color:#00FF00"></i> ' + (currentLanguage === 'es' ? 'Conectado' : 'Connected') : ''}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="action-btn edit-btn" data-id="${role.id}" title="${currentLanguage === 'es' ? 'Editar usuario' : 'Edit user'}">
+                                <i class="fas fa-edit"></i>
+                                <span>${currentLanguage === 'es' ? 'Editar' : 'Edit'}</span>
+                            </button>
+                            <button class="action-btn delete-btn" data-id="${role.id}" title="${currentLanguage === 'es' ? 'Eliminar usuario' : 'Delete user'}">
+                                <i class="fas fa-trash"></i>
+                                <span>${currentLanguage === 'es' ? 'Eliminar' : 'Delete'}</span>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                // Agregamos separador después de cada fila
+                DOM.rolesTableBody.appendChild(row);
+                const separator = document.createElement('tr');
+                separator.style.height = '8px';
+                separator.style.background = 'transparent';
+                separator.innerHTML = '<td colspan="6"></td>';
+                DOM.rolesTableBody.appendChild(separator);
+            });
+            
+            document.querySelectorAll('.edit-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const id = parseInt(e.currentTarget.getAttribute('data-id'));
+                    editUser(id);
+                });
+            });
+            
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const id = parseInt(e.currentTarget.getAttribute('data-id'));
+                    deleteUser(id);
+                });
+            });
+        }
+
+        function filterRoles() {
+            const filter = DOM.rolesFilter.value.toLowerCase();
+            const rows = DOM.rolesTableBody.getElementsByTagName('tr');
+            Array.from(rows).forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(filter) ? '' : 'none';
+            });
+        }
+
+        function populateUserSelect() {
+            DOM.userSelect.innerHTML = '<option value="" data-translate="select-user">Seleccionar usuario</option>';
+            DOM.loginUser.innerHTML = '<option value="" data-translate="select-user">Seleccionar usuario</option>';
+            rolesData.forEach(user => {
+                const option = document.createElement('option');
+                option.value = user.id;
+                option.textContent = `${user.nombre} - ${user.cargo}`;
+                DOM.userSelect.appendChild(option);
+                const loginOption = option.cloneNode(true);
+                DOM.loginUser.appendChild(loginOption);
+            });
+        }
+
+        function connectUser() {
+            const userId = parseInt(DOM.userSelect.value);
+            if (!userId) {
+                mostrarFeedback(currentLanguage === 'es' ? "Seleccione un usuario primero" : "Select a user first");
+                return;
+            }
+            const user = rolesData.find(u => u.id === userId);
+            if (user) {
+                currentUser = user;
+                saveCurrentUser(user);
+                DOM.userInfo.style.display = 'flex';
+                DOM.userDisplay.textContent = user.nombre;
+                loadRolesTable();
+                updateUserStats();
+                mostrarFeedback((currentLanguage === 'es' ? "Conectado como: " : "Connected as: ") + user.nombre);
+            }
+        }
+
+        function loginUser() {
+            const userId = parseInt(DOM.loginUser.value);
+            
+            if (!userId) {
+                mostrarFeedback(currentLanguage === 'es' ? "Seleccione un usuario primero" : "Select a user first");
+                return;
+            }
+            
+            const user = rolesData.find(u => u.id === userId);
+            if (user) {
+                currentUser = user;
+                saveCurrentUser(user);
+                DOM.userInfo.style.display = 'flex';
+                DOM.userDisplay.textContent = user.nombre;
+                DOM.loginContainer.style.display = 'none';
+                DOM.databaseContainer.style.display = 'block';
+                loadRolesTable();
+                updateUserStats();
+                mostrarFeedback((currentLanguage === 'es' ? "Bienvenido: " : "Welcome: ") + user.nombre);
+            }
+        }
+
+        function logoutUser() {
+            currentUser = null;
+            saveCurrentUser(null);
+            DOM.userInfo.style.display = 'none';
+            DOM.loginContainer.style.display = 'block';
+            DOM.databaseContainer.style.display = 'none';
+            loadRolesTable();
+            updateUserStats();
+            mostrarFeedback(currentLanguage === 'es' ? "Sesión cerrada" : "Session closed");
+        }
+
+        function registerUserActivity() {
+            if (!currentUser || wasManuallySkipped) return;
+            const activity = getUserActivity();
+            const now = new Date();
+            const today = now.toISOString().split('T')[0];
+            const currentExercise = currentExercises[currentIndex];
+            const existingIndex = activity.findIndex(a => 
+                a.userId === currentUser.id && 
+                a.exerciseId === currentIndex && 
+                a.date === today
+            );
+            if (existingIndex >= 0) {
+                activity[existingIndex].count += 1;
+                activity[existingIndex].totalTime += currentExercise.duration;
+                activity[existingIndex].lastSession = now.toISOString();
+            } else {
+                activity.push({
+                    userId: currentUser.id,
+                    userName: currentUser.nombre,
+                    userCargo: currentUser.cargo,
+                    userArea: currentUser.area,
+                    exerciseId: currentIndex,
+                    exerciseName: currentExercise.title,
+                    date: today,
+                    count: 1,
+                    totalTime: currentExercise.duration,
+                    lastSession: now.toISOString()
+                });
+            }
+            saveUserActivity(activity);
+            updateUserStats();
+        }
+
+        function updateUserStats() {
+            if (!currentUser) {
+                DOM.sessionsCount.textContent = "0";
+                DOM.totalTime.textContent = "0 min";
+                DOM.lastSession.textContent = "-";
+                DOM.todayCount.textContent = "0";
+                return;
+            }
+            const activity = getUserActivity();
+            const userActivity = activity.filter(a => a.userId === currentUser.id);
+            const today = new Date().toISOString().split('T')[0];
+            const todayActivity = userActivity.filter(a => a.date === today);
+            const totalSessions = userActivity.reduce((sum, a) => sum + a.count, 0);
+            const totalMinutes = Math.round(userActivity.reduce((sum, a) => sum + a.totalTime, 0) / 60);
+            const lastSession = userActivity.length > 0 ? 
+                new Date(Math.max(...userActivity.map(a => new Date(a.lastSession)))) : null;
+            const todaySessions = todayActivity.reduce((sum, a) => sum + a.count, 0);
+            DOM.sessionsCount.textContent = totalSessions;
+            DOM.totalTime.textContent = `${totalMinutes} min`;
+            DOM.lastSession.textContent = lastSession ? 
+                lastSession.toLocaleDateString('es-CO') : "-";
+            DOM.todayCount.textContent = todaySessions;
+        }
+
+        function exportToExcel() {
+            DOM.passwordModal.style.display = 'flex';
+            DOM.passwordModalTitle.textContent = currentLanguage === 'es' ? 'Contraseña requerida' : 'Password required';
+            DOM.exportPasswordInput.value = '';
+            DOM.passwordError.style.display = 'none';
+        }
+
+        function validatePassword() {
+            const password = DOM.exportPasswordInput.value;
+            if (password === ADMIN_PASSWORD) {
+                closePasswordModal();
+                performExport();
+            } else {
+                DOM.passwordError.style.display = 'block';
+            }
+        }
+
+        function performExport() {
+            const users = getUsers();
+            const activity = getUserActivity();
+            const nombreArchivo = `Reporte_SST_LorenZOO_${new Date().toISOString().split('T')[0]}.xlsx`;
+            try {
+                const wb = XLSX.utils.book_new();
+                
+                const userData = users.map(u => ({
+                    ID: u.id,
+                    Nombre: u.nombre,
+                    Cargo: u.cargo,
+                    Área: u.area
+                }));
+                const userWs = XLSX.utils.json_to_sheet(userData);
+                XLSX.utils.book_append_sheet(wb, userWs, "Usuarios");
+                
+                const activityData = activity.map(a => ({
+                    Usuario: a.userName,
+                    Cargo: a.userCargo,
+                    Área: a.userArea,
+                    Ejercicio: a.exerciseName,
+                    Fecha: a.date,
+                    Sesiones: a.count,
+                    'Tiempo Total (s)': a.totalTime,
+                    'Última Sesión': a.lastSession
+                }));
+                const activityWs = XLSX.utils.json_to_sheet(activityData);
+                XLSX.utils.book_append_sheet(wb, activityWs, "Actividad");
+
+                const wopts = { 
+                    bookType: 'xlsx', 
+                    bookSST: false, 
+                    type: 'binary'
+                };
+                const wbout = XLSX.write(wb, wopts);
+                const blob = new Blob([s2ab(wbout)], { 
+                    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" 
+                });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = nombreArchivo;
+                document.body.appendChild(a);
+                a.click();
+                setTimeout(() => {
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }, 100);
+                mostrarFeedback(currentLanguage === 'es' 
+                    ? `✅ Archivo "${nombreArchivo}" exportado correctamente.` 
+                    : `✅ File "${nombreArchivo}" exported successfully.`);
+            } catch (error) {
+                console.error("Error al exportar:", error);
+                mostrarFeedback(currentLanguage === 'es' 
+                    ? "❌ Error al exportar el archivo." 
+                    : "❌ Error exporting file.");
+            }
+        }
+
+        function s2ab(s) {
+            const buf = new ArrayBuffer(s.length);
+            const view = new Uint8Array(buf);
+            for (let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+            return buf;
+        }
+
+        function closePasswordModal() {
+            DOM.passwordModal.style.display = 'none';
+            DOM.exportPasswordInput.value = '';
+            DOM.passwordError.style.display = 'none';
+        }
+
+        function importFromExcel() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.xlsx, .xls';
+            input.onchange = e => {
+                const file = e.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const data = new Uint8Array(e.target.result);
+                        const workbook = XLSX.read(data, {type: 'array'});
+                        if (workbook.Sheets["Usuarios"]) {
+                            const userData = XLSX.utils.sheet_to_json(workbook.Sheets["Usuarios"]);
+                            const users = userData.map(u => ({
+                                id: u.ID,
+                                nombre: u.Nombre,
+                                cargo: u.Cargo,
+                                area: u.Área
+                            }));
+                            saveUsers(users);
+                            rolesData = users;
+                            loadRolesTable();
+                            populateUserSelect();
+                        }
+                        if (workbook.Sheets["Actividad"]) {
+                            const activityData = XLSX.utils.sheet_to_json(workbook.Sheets["Actividad"]);
+                            const activity = activityData.map(a => ({
+                                userId: a.ID || 0,
+                                userName: a.Usuario,
+                                userCargo: a.Cargo,
+                                userArea: a.Área,
+                                exerciseId: 0,
+                                exerciseName: a.Ejercicio,
+                                date: a.Fecha,
+                                count: a.Sesiones,
+                                totalTime: a['Tiempo Total (s)'],
+                                lastSession: a['Última Sesión']
+                            }));
+                            saveUserActivity(activity);
+                        }
+                        mostrarFeedback(currentLanguage === 'es' ? "✅ Datos importados" : "✅ Data imported");
+                        updateUserStats();
+                    } catch (error) {
+                        console.error("Error al importar:", error);
+                        mostrarFeedback(currentLanguage === 'es' ? "❌ Error al importar" : "❌ Error importing");
+                    }
+                };
+                reader.readAsArrayBuffer(file);
+            };
+            input.click();
+        }
+
+        function showAddUserModal() {
+            DOM.addUserModal.style.display = 'flex';
+        }
+
+        function hideAddUserModal() {
+            DOM.addUserModal.style.display = 'none';
+            document.getElementById('new-user-name').value = '';
+            document.getElementById('new-user-cargo').value = '';
+            document.getElementById('new-user-area').value = '';
+        }
+
+        function addNewUser() {
+            const name = document.getElementById('new-user-name').value.trim();
+            const cargo = document.getElementById('new-user-cargo').value.trim();
+            const area = document.getElementById('new-user-area').value.trim();
+            
+            if (!name || !cargo || !area) {
+                mostrarFeedback(currentLanguage === 'es' ? "Complete todos los campos" : "Complete all fields");
+                return;
+            }
+            
+            const users = getUsers();
+            const newId = users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1;
+            const newUser = {
+                id: newId,
+                nombre: name,
+                cargo: cargo,
+                area: area
+            };
+            users.push(newUser);
+            saveUsers(users);
+            rolesData = users;
+            loadRolesTable();
+            populateUserSelect();
+            hideAddUserModal();
+            mostrarFeedback(currentLanguage === 'es' ? "✅ Usuario agregado" : "✅ User added");
+        }
+
+        function editUser(id) {
+            const user = rolesData.find(u => u.id === id);
+            if (!user) return;
+            document.getElementById('edit-user-id').value = user.id;
+            document.getElementById('edit-user-name').value = user.nombre;
+            document.getElementById('edit-user-cargo').value = user.cargo;
+            document.getElementById('edit-user-area').value = user.area;
+            DOM.editUserModal.style.display = 'flex';
+        }
+
+        function saveEditUser() {
+            const id = parseInt(document.getElementById('edit-user-id').value);
+            const name = document.getElementById('edit-user-name').value.trim();
+            const cargo = document.getElementById('edit-user-cargo').value.trim();
+            const area = document.getElementById('edit-user-area').value.trim();
+            
+            if (!name || !cargo || !area) {
+                mostrarFeedback(currentLanguage === 'es' ? "Complete todos los campos" : "Complete all fields");
+                return;
+            }
+            
+            const users = getUsers();
+            const userIndex = users.findIndex(u => u.id === id);
+            if (userIndex === -1) {
+                mostrarFeedback(currentLanguage === 'es' ? "Usuario no encontrado" : "User not found");
+                return;
+            }
+            
+            const updatedUser = {
+                ...users[userIndex],
+                nombre: name,
+                cargo: cargo,
+                area: area
+            };
+            
+            users[userIndex] = updatedUser;
+            saveUsers(users);
+            rolesData = users;
+            loadRolesTable();
+            populateUserSelect();
+            hideEditUserModal();
+            mostrarFeedback(currentLanguage === 'es' ? "✅ Usuario actualizado" : "✅ User updated");
+        }
+
+        function deleteUser(id) {
+            if (!confirm(currentLanguage === 'es' ? "¿Está seguro de eliminar este usuario?" : "Are you sure you want to delete this user?")) {
+                return;
+            }
+            const users = getUsers();
+            const userIndex = users.findIndex(u => u.id === id);
+            if (userIndex === -1) {
+                mostrarFeedback(currentLanguage === 'es' ? "Usuario no encontrado" : "User not found");
+                return;
+            }
+            users.splice(userIndex, 1);
+            if (currentUser && currentUser.id === id) {
+                logoutUser();
+            }
+            saveUsers(users);
+            rolesData = users;
+            loadRolesTable();
+            populateUserSelect();
+            mostrarFeedback(currentLanguage === 'es' ? "✅ Usuario eliminado" : "✅ User deleted");
+        }
+
+        function hideEditUserModal() {
+            DOM.editUserModal.style.display = 'none';
+            document.getElementById('edit-user-id').value = '';
+            document.getElementById('edit-user-name').value = '';
+            document.getElementById('edit-user-cargo').value = '';
+            document.getElementById('edit-user-area').value = '';
+        }
+
+        function showRegisterModal() {
+            DOM.registerModal.style.display = 'flex';
+        }
+
+        function hideRegisterModal() {
+            DOM.registerModal.style.display = 'none';
+            document.getElementById('register-name').value = '';
+            document.getElementById('register-cargo').value = '';
+            document.getElementById('register-area').value = '';
+        }
+
+        function registerNewUser() {
+            const name = document.getElementById('register-name').value.trim();
+            const cargo = document.getElementById('register-cargo').value.trim();
+            const area = document.getElementById('register-area').value.trim();
+            
+            if (!name || !cargo || !area) {
+                mostrarFeedback(currentLanguage === 'es' ? "Complete todos los campos" : "Complete all fields");
+                return;
+            }
+            
+            const users = getUsers();
+            const newId = users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1;
+            const newUser = {
+                id: newId,
+                nombre: name,
+                cargo: cargo,
+                area: area
+            };
+            users.push(newUser);
+            saveUsers(users);
+            rolesData = users;
+            loadRolesTable();
+            populateUserSelect();
+            hideRegisterModal();
+            mostrarFeedback(currentLanguage === 'es' ? "✅ Usuario registrado" : "✅ User registered");
+        }
+
+        function toggleSidebar() {
+            sidebarOpen = !sidebarOpen;
+            if (sidebarOpen) {
+                DOM.rolesSidebar.style.display = 'block';
+                DOM.toggleSidebar.innerHTML = '<i class="fas fa-times"></i>';
+                DOM.floatingSidebarToggle.style.display = 'none';
+            } else {
+                DOM.rolesSidebar.style.display = 'none';
+                DOM.toggleSidebar.innerHTML = '<i class="fas fa-bars"></i>';
+                DOM.floatingSidebarToggle.style.display = 'flex';
+            }
+        }
+
+        function openSidebar() {
+            DOM.rolesSidebar.style.display = 'block';
+            DOM.floatingSidebarToggle.style.display = 'none';
+            sidebarOpen = true;
+        }
+
+        function createAlarmSound() {
+            try {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                oscillator.type = 'sine';
+                oscillator.frequency.value = 800;
+                gainNode.gain.value = 0.5;
+                const beepPattern = () => {
+                    gainNode.gain.setValueAtTime(0.5, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+                    setTimeout(() => {
+                        gainNode.gain.setValueAtTime(0.5, audioContext.currentTime);
+                        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+                    }, 300);
+                };
+                oscillator.start();
+                const interval = setInterval(beepPattern, 1000);
+                setTimeout(() => {
+                    clearInterval(interval);
+                    oscillator.stop();
+                }, 5000);
+            } catch (error) {
+                console.error("Error creando sonido de alarma:", error);
+            }
+        }
+
+        function checkReminder(now) {
+            const hour = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            const today = now.toDateString();
+            if (localStorage.getItem('lastReminderDate') !== today) {
+                reminderShownToday = { '11am': false, '3pm': false };
+                localStorage.setItem('lastReminderDate', today);
+            }
+            if (hour === 11 && minutes === 0 && seconds === 0 && !reminderShownToday['11am']) {
+                showReminderAlert('11am');
+                reminderShownToday['11am'] = true;
+            }
+            if (hour === 15 && minutes === 0 && seconds === 0 && !reminderShownToday['3pm']) {
+                showReminderAlert('3pm');
+                reminderShownToday['3pm'] = true;
+            }
+        }
+
+        function showReminderAlert(timeOfDay) {
+            createAlarmSound();
+            let title, message;
+            if (timeOfDay === '11am') {
+                title = currentLanguage === 'es' ? '¡Recordatorio de Pausa Activa!' : 'Active Break Reminder!';
+                message = currentLanguage === 'es' 
+                    ? 'Son las 11:00 AM. Es un buen momento para realizar ejercicios de pausa activa.' 
+                    : "It's 11:00 AM. It's a good time to do active break exercises.";
+            } else {
+                title = currentLanguage === 'es' ? '¡Recordatorio de Pausa Activa!' : 'Active Break Reminder!';
+                message = currentLanguage === 'es' 
+                    ? 'Son las 3:00 PM. Tómate un descanso para realizar ejercicios de pausa activa.' 
+                    : "It's 3:00 PM. Take a break to do active break exercises.";
+            }
+            DOM.reminderTitle.textContent = title;
+            DOM.reminderMessage.textContent = message;
+            DOM.reminderAlert.style.display = 'block';
+        }
+
+        function closeReminderAlert() {
+            DOM.reminderAlert.style.display = 'none';
+        }
+
+        function startExercisesFromReminder() {
+            closeReminderAlert();
+            wasManuallySkipped = false;
+            loadExercise(0);
+            playVideo();
+        }
+
+        function initializeApp() {
+            const db = initializeDatabase();
+            rolesData = db.users;
+            currentUser = db.currentUser;
+            createStarsAndComets();
+            loadRolesTable();
+            populateUserSelect();
+            renderExerciseList();
+            changeLanguage('es');
+            setInterval(updateClock, 1000);
+            updateClock();
+            
+            setupPasswordToggles();
+            
+            document.getElementById('es-btn').addEventListener('click', () => changeLanguage('es'));
+            document.getElementById('en-btn').addEventListener('click', () => changeLanguage('en'));
+            DOM.reloadVideoBtn.addEventListener('click', () => {
+                wasManuallySkipped = false;
+                loadExercise(currentIndex);
+            });
+            DOM.rolesFilter.addEventListener('input', filterRoles);
+            DOM.excelExportBtn.addEventListener('click', exportToExcel);
+            DOM.excelImportBtn.addEventListener('click', importFromExcel);
+            DOM.connectUserBtn.addEventListener('click', connectUser);
+            DOM.loginBtn.addEventListener('click', loginUser);
+            DOM.logoutBtn.addEventListener('click', logoutUser);
+            DOM.addUserBtn.addEventListener('click', showAddUserModal);
+            DOM.closeModal.addEventListener('click', hideAddUserModal);
+            DOM.cancelAddUser.addEventListener('click', hideAddUserModal);
+            DOM.saveNewUser.addEventListener('click', addNewUser);
+            DOM.showRegister.addEventListener('click', showRegisterModal);
+            DOM.closeRegisterModal.addEventListener('click', hideRegisterModal);
+            DOM.cancelRegister.addEventListener('click', hideRegisterModal);
+            DOM.saveRegister.addEventListener('click', registerNewUser);
+            DOM.toggleSidebar.addEventListener('click', toggleSidebar);
+            DOM.closeEditModal.addEventListener('click', hideEditUserModal);
+            DOM.cancelEditUser.addEventListener('click', hideEditUserModal);
+            DOM.saveEditUser.addEventListener('click', saveEditUser);
+            DOM.floatingSidebarToggle.addEventListener('click', openSidebar);
+            DOM.reminderStart.addEventListener('click', startExercisesFromReminder);
+            DOM.reminderClose.addEventListener('click', closeReminderAlert);
+            DOM.closePasswordModal.addEventListener('click', closePasswordModal);
+            DOM.cancelPasswordBtn.addEventListener('click', closePasswordModal);
+            DOM.submitPasswordBtn.addEventListener('click', validatePassword);
+            
+            DOM.exportPasswordInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    validatePassword();
+                }
+            });
+            
+            // Resetear flag cuando el usuario interactúa con controles del video
+            DOM.video.addEventListener('seeked', function() {
+                wasManuallySkipped = false;
+            });
+            
+            document.addEventListener('click', () => { userInteracted = true; }, { once: true });
+            const year = new Date().getFullYear();
+            DOM.copyright.innerHTML = `&copy; ${year} Todos los derechos reservados. Elaborado por Jeison Serrano — https://www.linkedin.com/in/jeison-serrano-59445b19b/`;
+            if (currentUser) {
+                DOM.userInfo.style.display = 'flex';
+                DOM.userDisplay.textContent = currentUser.nombre;
+                DOM.loginContainer.style.display = 'none';
+                DOM.databaseContainer.style.display = 'block';
+                updateUserStats();
+            }
+            if (currentExercises.length > 0) {
+                wasManuallySkipped = false;
+                loadExercise(0);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', initializeApp);
+    </script>
+</body>
+</html>
