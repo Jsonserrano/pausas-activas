@@ -1,0 +1,15 @@
+/* Fuente Orbitron guardada en la app (antes venía de Google Fonts y sin internet no cargaba). */
+@font-face {
+    font-family: 'Orbitron';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('../vendor/fuentes/orbitron-latin-500-normal.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Orbitron';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('../vendor/fuentes/orbitron-latin-700-normal.woff2') format('woff2');
+}

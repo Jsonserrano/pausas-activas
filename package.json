@@ -1,0 +1,110 @@
+{
+  "name": "pausas-activas",
+  "version": "1.3.0",
+  "description": "Aplicación institucional de Pausas Activas para bienestar laboral: rutina en video, ejercicios nuevos con IA, recordatorios, reporte SST en Excel y copias de seguridad.",
+  "author": "Jeison Serrano – Aprendiz SENA",
+  "contributors": [
+    {
+      "name": "Jeison Serrano",
+      "title": "Aprendiz SENA"
+    }
+  ],
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --enable-logging",
+    "clean:all": "rimraf dist node_modules && npm install",
+    "dist": "electron-builder",
+    "build": "electron-builder --win nsis",
+    "package": "electron-builder --dir",
+    "release": "electron-builder --publish always",
+    "postinstall": "electron-builder install-app-deps",
+    "test": "node --test pruebas/basicas.test.js",
+    "cambiar-clave": "node herramientas/cambiar-clave.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jsonserrano/pausas-activas"
+  },
+  "bugs": {
+    "url": "https://github.com/Jsonserrano/pausas-activas/issues"
+  },
+  "homepage": "https://github.com/Jsonserrano/pausas-activas",
+  "keywords": [
+    "electron",
+    "pausas-activas",
+    "bienestar",
+    "institucional",
+    "multiplataforma",
+    "productividad",
+    "salud-laboral",
+    "ia"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "build": {
+    "appId": "com.labzoo.pausasactivas",
+    "productName": "Pausas Activas",
+    "directories": {
+      "output": "dist"
+    },
+    "artifactName": "PausasActivas-${version}-setup.exe",
+    "files": [
+      "main.js",
+      "preload.js",
+      "alarmScheduler.js",
+      "principal/**",
+      "index.html",
+      "css/**",
+      "js/**",
+      "vendor/**",
+      "videos/**",
+      "assets/icons/**",
+      "clave-local.json",
+      "LICENSE.txt",
+      "package.json",
+      "node_modules/**"
+    ],
+    "asar": true,
+    "compression": "maximum",
+    "win": {
+      "icon": "assets/icons/app.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "license": "LICENSE.txt",
+      "oneClick": false,
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "artifactName": "PausasActivas-${version}-setup.exe"
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "Jsonserrano",
+        "repo": "pausas-activas"
+      }
+    ],
+    "copyright": "© 2025-2026 Jeison Serrano – Aprendiz SENA"
+  },
+  "dependencies": {
+    "exceljs": "^4.4.0"
+  },
+  "devDependencies": {
+    "electron": "^39.2.7",
+    "electron-builder": "^26.0.12",
+    "rimraf": "^5.0.5"
+  },
+  "license": "MIT"
+}
