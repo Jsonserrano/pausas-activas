@@ -4,7 +4,7 @@ Aplicación de escritorio para el programa de **Seguridad y Salud en el Trabajo 
 
 > Versión pública de demostración: los nombres del personal se reemplazaron por "Usuario N" y los videos no se incluyen.
 
-**Autor:** Jeison Serrano — Aprendiz SENA · [LinkedIn](https://www.linkedin.com/in/jeison-serrano-59445b19b/)
+**Autor:** Jeison Serrano — Aprendiz SENA · [LinkedIn](https://www.linkedin.com/in/jeison-serrano-59445b19b/) · [WhatsApp](https://wa.me/573193729772?text=Hola%2C%20vi%20Pausas%20Activas%20en%20GitHub)
 **Tecnologías:** Electron 39 · JavaScript · HTML · CSS · ExcelJS · API de Claude (Anthropic)
 
 ![Demo de Pausas Activas](docs/demo.gif)
