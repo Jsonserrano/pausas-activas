@@ -7,7 +7,7 @@ Aplicación de escritorio para el programa de **Seguridad y Salud en el Trabajo 
 **Autor:** Jeison Serrano — Aprendiz SENA · [LinkedIn](https://www.linkedin.com/in/jeison-serrano-59445b19b/)
 **Tecnologías:** Electron 39 · JavaScript · HTML · CSS · ExcelJS · API de Claude (Anthropic)
 
-![Ejercicio guiado](assets/screenshots/ejercicio-guiado.png)
+![Demo de Pausas Activas](docs/demo.gif)
 
 ## Funciones
 
